@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <!-- 控制台 -->
+    <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%15t] [%30.30C{1}] [%3L] %6p - %m %n"/>
+        </layout>
+    </appender>
+
+    <!-- 全日志 -->
+    <appender name="LogFile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/export/Logs/predictor/all.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'_'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %p - %m |||| %l%n"/>
+        </layout>
+    </appender>
+
+    <!-- predictor 日志 -->
+    <appender name="predictorLog" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/export/Logs/predictor/predictor.log" />
+        <param name="Append" value="true" />
+        <param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%30.30C{1}] [%3L] %6p - %m %n" />
+        </layout>
+    </appender>
+    <appender name="timeoutLog" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/export/Logs/predictor/timeout.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'_'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%30.30C{1}] [%3L] %6p - %m %n"/>
+        </layout>
+    </appender>
+    <logger name="com.jd.si.diviner.predictor.builder">
+        <level value="ERROR" />
+        <appender-ref ref="timeoutLog"/>
+    </logger>
+
+    <logger name="com.jd.si.diviner.predictor">
+        <level value="ERROR" />
+        <appender-ref ref="predictorLog" />
+    </logger>
+    <root>
+        <priority value="ERROR"/>
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="LogFile"/>
+    </root>
+
+</log4j:configuration> 
